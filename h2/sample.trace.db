@@ -1,0 +1,685 @@
+2018-09-07 17:32:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "INJTEST" not found; SQL statement:
+select * from injTest where id=? [42102-197]
+2018-09-07 17:33:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "INJTEST" not found; SQL statement:
+insert into injTest (id, name, group_id) values (0, "user0", "0") [42102-197]
+2018-09-07 17:36:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "INJTEST" not found; SQL statement:
+insert into injTest (id, name, group_id) values (0, "user0", "0") [42102-197]
+2018-09-07 17:38:05 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:192)
+	at org.h2.message.DbException.convert(DbException.java:345)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2665)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:421)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:384)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3176)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:156)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2653)
+	at org.h2.engine.Database.open(Database.java:741)
+	at org.h2.engine.Database.openDatabase(Database.java:317)
+	at org.h2.engine.Database.<init>(Database.java:311)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:200)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:123)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.usf.h2plus.TestUtils.fillDatabase(TestUtils.java:37)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:11)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:499)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	... 26 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:882)
+	at org.h2.mvstore.FileStore.open(FileStore.java:171)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:370)
+	... 20 more
+2018-09-07 17:38:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "user0" not found; SQL statement:
+insert into injTest (id, name, group_id) values (0, "user0", "0") [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:448)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:149)
+	at org.h2.command.dml.Insert.prepare(Insert.java:338)
+	at org.h2.command.Parser.prepareCommand(Parser.java:620)
+	at org.h2.engine.Session.prepareLocal(Session.java:623)
+	at org.h2.engine.Session.prepareCommand(Session.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1246)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:165)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:126)
+	at edu.usf.h2plus.TestUtils.fillDatabase(TestUtils.java:40)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:11)
+2018-09-07 17:38:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "user0" not found; SQL statement:
+insert into injTest (id, name, group_id) values (0, "user0", "0") [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:448)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:149)
+	at org.h2.command.dml.Insert.prepare(Insert.java:338)
+	at org.h2.command.Parser.prepareCommand(Parser.java:620)
+	at org.h2.engine.Session.prepareLocal(Session.java:623)
+	at org.h2.engine.Session.prepareCommand(Session.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1246)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:165)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:126)
+	at edu.usf.h2plus.TestUtils.fillDatabase(TestUtils.java:40)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:11)
+2018-09-07 17:51:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM INJTEST WHERE [[*]ID UNION SELECT * FROM INJTEST                   0 "; expected "NOT, EXISTS, INTERSECTS"; SQL statement:
+select * from injTest where [id UNION select * from injTest--] between 1 and 10 [42001-197]
+2018-09-07 17:52:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM INJTEST WHERE [[*]ID] BETWEEN 1 AND 10 "; expected "NOT, EXISTS, INTERSECTS"; SQL statement:
+select * from injTest where [id] between 1 and 10 [42001-197]
+2018-09-07 17:54:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM [[*]INJTEST] WHERE ID BETWEEN 1 AND 10 "; expected "identifier"; SQL statement:
+select * from [injTest] where id between 1 and 10 [42001-197]
+2018-09-07 17:55:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM [[*]INJTEST] WHERE ID BETWEEN 1 AND 10 "; expected "identifier"; SQL statement:
+select * from [injTest] where id between 1 and 10 [42001-197]
+2018-09-07 18:26:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "_INJTEST_" not found; SQL statement:
+select * from _injTest_ where id between 1 and 10 [42102-197]
+2018-09-07 18:26:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "injTest" not found; SQL statement:
+select * from "injTest" where id between 1 and 10 [42102-197]
+2018-09-07 18:26:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM [[*]INJTEST] WHERE ID BETWEEN 1 AND 10 "; expected "identifier"; SQL statement:
+select * from [injTest] where id between 1 and 10 [42001-197]
+2018-09-07 18:34:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "injTest" not found; SQL statement:
+select * from "injTest" where id between 1 and 10 [42102-197]
+2018-09-09 07:06:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM INJTEST WHERE [[*]ID] BETWEEN ? AND ? "; expected "NOT, EXISTS, INTERSECTS"; SQL statement:
+select * from injTest where [id] between ? and ? [42001-197]
+2018-09-09 07:14:53 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:192)
+	at org.h2.message.DbException.convert(DbException.java:345)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2665)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:421)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:384)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3176)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:156)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2653)
+	at org.h2.engine.Database.open(Database.java:741)
+	at org.h2.engine.Database.openDatabase(Database.java:317)
+	at org.h2.engine.Database.<init>(Database.java:311)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:200)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:123)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.usf.h2plus.MainTest.testDatabase(MainTest.java:19)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:499)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	... 26 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:882)
+	at org.h2.mvstore.FileStore.open(FileStore.java:171)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:370)
+	... 20 more
+2018-09-09 07:15:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:27 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:27 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:27 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:15:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PERSON" not found; SQL statement:
+insert into injTest (id, name, group_id) values (?, ?, (select name from person where id=155)); delete from injTest where group_id='50';--  (id, name, group_id) values (?, ?, '50') [42102-197]
+2018-09-09 07:16:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:16:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:16:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:16:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:16:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:16:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:20:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:20:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:20:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:20:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:20:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:20:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:29:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:29:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:29:43 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:29:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:29:43 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:29:43 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:48:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:48:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:48:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:48:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:48:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 07:48:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:28:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Order by expression "5" must be in the result list in this case; SQL statement:
+select * from injTest where group_id='70' order by 5 [90068-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:568)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.command.dml.Query.prepareOrder(Query.java:606)
+	at org.h2.command.dml.Select.prepare(Select.java:1058)
+	at org.h2.command.Parser.prepareCommand(Parser.java:620)
+	at org.h2.engine.Session.prepareLocal(Session.java:623)
+	at org.h2.engine.Session.prepareCommand(Session.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1246)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:78)
+	at edu.usf.h2plus.SQLInjectionUtils.testInjectionOrder(SQLInjectionUtils.java:53)
+	at edu.usf.h2plus.MainTest.testDatabase(MainTest.java:20)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:10)
+2018-09-09 08:33:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:17 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:17 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:17 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:40 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:40 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:40 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:33:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:34:12 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:192)
+	at org.h2.message.DbException.convert(DbException.java:345)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2665)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:421)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:384)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3176)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:156)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2653)
+	at org.h2.engine.Database.open(Database.java:741)
+	at org.h2.engine.Database.openDatabase(Database.java:317)
+	at org.h2.engine.Database.<init>(Database.java:311)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:200)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:123)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.usf.h2plus.MainTest.testDatabase(MainTest.java:19)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:499)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	... 26 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:882)
+	at org.h2.mvstore.FileStore.open(FileStore.java:171)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:370)
+	... 20 more
+2018-09-09 08:35:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:35:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:35:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:35:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:35:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 08:35:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 14:31:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 14:31:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 14:31:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 14:31:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 14:31:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-09 14:31:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:43:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE 1234[*] (AAA INT) "; expected "identifier"; SQL statement:
+create table 1234 (aaa int) [42001-195]
+2018-09-10 06:44:59 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "%1234" not found; SQL statement:
+drop table "%1234" [42102-195]
+2018-09-10 06:45:01 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "%1234 " not found; SQL statement:
+drop table "%1234 " [42102-195]
+2018-09-10 06:48:21 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:48:21 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:48:21 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:48:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:48:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:48:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:49:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "injTest" not found; SQL statement:
+select * from "injTest" where group_id='70' order by 2 [42102-197]
+2018-09-10 06:49:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM 'injTest'[*] WHERE GROUP_ID='70' ORDER BY 2 "; expected "identifier"; SQL statement:
+select * from 'injTest' where group_id='70' order by 2 [42001-197]
+2018-09-10 06:51:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "create table [*]""{from} (aaa int)" [42000-195]
+2018-09-10 06:51:31 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "create table [*]""{from} (aaa int)" [42000-195]
+2018-09-10 06:53:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:53:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:53:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:53:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:53:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:53:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:53:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Function "INJTEST" not found; SQL statement:
+select * from  injTest  where group_id='70' order by injTest (id, name, group_id) values (112, 'dummy', '50'); delete from injTest where group_id='50';--  [90022-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:568)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.command.Parser.readJavaFunction(Parser.java:3002)
+	at org.h2.command.Parser.readFunction(Parser.java:3074)
+	at org.h2.command.Parser.readTerm(Parser.java:3409)
+	at org.h2.command.Parser.readFactor(Parser.java:2865)
+	at org.h2.command.Parser.readSum(Parser.java:2852)
+	at org.h2.command.Parser.readConcat(Parser.java:2822)
+	at org.h2.command.Parser.readCondition(Parser.java:2683)
+	at org.h2.command.Parser.readAnd(Parser.java:2655)
+	at org.h2.command.Parser.readExpression(Parser.java:2647)
+	at org.h2.command.Parser.parseEndOfQuery(Parser.java:2323)
+	at org.h2.command.Parser.parseSelectUnion(Parser.java:2307)
+	at org.h2.command.Parser.parseSelect(Parser.java:2259)
+	at org.h2.command.Parser.parsePrepared(Parser.java:696)
+	at org.h2.command.Parser.parse(Parser.java:672)
+	at org.h2.command.Parser.parse(Parser.java:644)
+	at org.h2.command.Parser.prepareCommand(Parser.java:615)
+	at org.h2.engine.Session.prepareLocal(Session.java:623)
+	at org.h2.engine.Session.prepareCommand(Session.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1246)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:78)
+	at edu.usf.h2plus.SQLInjectionUtils.testInjectionOrder(SQLInjectionUtils.java:53)
+	at edu.usf.h2plus.MainTest.testDatabase(MainTest.java:20)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:10)
+2018-09-10 06:54:06 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:54:06 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:54:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:54:06 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:54:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:54:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 06:55:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select * from injTest where {id UNION select * from injTest--} between 1 and 1[*]0" [42000-197]
+2018-09-10 07:31:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:31:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:31:51 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:31:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:31:51 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:31:51 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:31:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Method is only allowed for a query. Use execute or executeUpdate instead of executeQuery; SQL statement:
+delete from injTest where id in (select top 3 id from injTest order by id desc) [90002-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:499)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.command.Prepared.query(Prepared.java:229)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:115)
+	at org.h2.command.Command.executeQuery(Command.java:201)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:85)
+	at edu.usf.h2plus.SQLInjectionUtils.testInjectionDeleteOrder(SQLInjectionUtils.java:61)
+	at edu.usf.h2plus.MainTest.testDatabase(MainTest.java:20)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:10)
+2018-09-10 07:33:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:33:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:33:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:33:06 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:33:06 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:33:06 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:33:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM INJTEST WHERE ID IN (SELECT TOP 3 ID FROM INJTEST ORDER BY ID;[*] DELETE FROM INJTEST;        ) "; expected "., (, [, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, ASC, DESC, NULLS, ,, FOR, )"; SQL statement:
+delete from injTest where id in (select top 3 id from injTest order by id; delete from injTest;--  desc) [42001-197]
+2018-09-10 07:39:20 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:192)
+	at org.h2.message.DbException.convert(DbException.java:345)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2665)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:421)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:384)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3176)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:156)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2653)
+	at org.h2.engine.Database.open(Database.java:741)
+	at org.h2.engine.Database.openDatabase(Database.java:317)
+	at org.h2.engine.Database.<init>(Database.java:311)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:200)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:123)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.usf.h2plus.MainTest.testDatabase(MainTest.java:19)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:499)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	... 26 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:882)
+	at org.h2.mvstore.FileStore.open(FileStore.java:171)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:370)
+	... 20 more
+2018-09-10 07:39:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:39:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:39:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:39:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:39:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-10 07:39:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 06:59:52 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:192)
+	at org.h2.message.DbException.convert(DbException.java:345)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2665)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:421)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:384)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3176)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:156)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2653)
+	at org.h2.engine.Database.open(Database.java:741)
+	at org.h2.engine.Database.openDatabase(Database.java:317)
+	at org.h2.engine.Database.<init>(Database.java:311)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:200)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:123)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.usf.h2plus.TestUtils.fillDatabase(TestUtils.java:37)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:11)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:499)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	... 26 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:882)
+	at org.h2.mvstore.FileStore.open(FileStore.java:171)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:370)
+	... 20 more
+2018-09-11 06:59:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 06:59:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 06:59:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 06:59:56 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 06:59:56 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 06:59:56 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:00:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:00:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:00:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:00:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:00:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:00:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:01:10 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:192)
+	at org.h2.message.DbException.convert(DbException.java:345)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2665)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:421)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:384)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3176)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:156)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2653)
+	at org.h2.engine.Database.open(Database.java:741)
+	at org.h2.engine.Database.openDatabase(Database.java:317)
+	at org.h2.engine.Database.<init>(Database.java:311)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:200)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:123)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.usf.h2plus.TestUtils.fillDatabase(TestUtils.java:37)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:11)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:499)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	... 26 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:882)
+	at org.h2.mvstore.FileStore.open(FileStore.java:171)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:370)
+	... 20 more
+2018-09-11 07:01:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:01:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:01:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:01:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:01:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:01:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:02:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:02:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:02:02 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:02:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:02:02 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:02:02 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:03:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM INJTEST WHERE 1[*]\=1 OR ID\=\?\-\- WHERE ID=? "; SQL statement:
+DELETE FROM injTest where 1\=1 or id\=\?\-\- WHERE id=? [42000-197]
+2018-09-11 07:06:48 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:192)
+	at org.h2.message.DbException.convert(DbException.java:345)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:90)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2665)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:421)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:384)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:3176)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:156)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:95)
+	at org.h2.engine.Database.getPageStore(Database.java:2653)
+	at org.h2.engine.Database.open(Database.java:741)
+	at org.h2.engine.Database.openDatabase(Database.java:317)
+	at org.h2.engine.Database.<init>(Database.java:311)
+	at org.h2.engine.Engine.openSession(Engine.java:69)
+	at org.h2.engine.Engine.openSession(Engine.java:200)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:178)
+	at org.h2.engine.Engine.createSession(Engine.java:161)
+	at org.h2.engine.Engine.createSession(Engine.java:31)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:336)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:123)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:102)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.usf.h2plus.MainTest.testDatabase(MainTest.java:19)
+	at edu.usf.h2plus.MainTest.main(MainTest.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:499)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:425)
+	... 26 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/cagricetin/Documents/DEV/BroNIE/h2database/h2database/h2/sample.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:882)
+	at org.h2.mvstore.FileStore.open(FileStore.java:171)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:370)
+	... 20 more
+2018-09-11 07:06:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:06:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:06:55 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:06:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:06:55 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:06:55 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-11 07:07:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT COUNT(*) FROM INJTEST UNION SELECT COUNT[*]\(\*\) FROM PERSON "; SQL statement:
+SELECT COUNT(*) FROM injTest union select count\(\*\) from person [42000-197]
+2018-09-11 07:08:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT COUNT(*) FROM INJTEST UNION SELECT[*] \ COUNT\(\*\)\  FROM PERSON "; SQL statement:
+SELECT COUNT(*) FROM injTest union select \ count\(\*\)\  from person [42000-197]
+2018-09-19 11:42:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-19 11:42:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
+2018-09-19 11:42:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-195]
