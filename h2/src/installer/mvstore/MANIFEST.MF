@@ -11,11 +11,16 @@ Bundle-ManifestVersion: 2
 Bundle-Name: H2 MVStore
 Bundle-SymbolicName: com.h2database.mvstore
 Bundle-Vendor: H2 Group
-Bundle-Version: ${version}
+Bundle-Version: 1
 Bundle-License: http://www.h2database.com/html/license.html
 Bundle-Category: utility
 Import-Package: javax.crypto,
- javax.crypto.spec
+ javax.crypto.spec,
+ org.hibernate,
+ javax.persistence,
+ com.querydsl.core,
+ com.querydsl.sql,
+ javax.sql
 Export-Package: org.h2.mvstore;version="${version}",
  org.h2.mvstore.type;version="${version}",
  org.h2.mvstore.rtree;version="${version}"

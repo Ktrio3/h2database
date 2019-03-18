@@ -130,6 +130,26 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.3.2.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ddlutils</groupId>
+      <artifactId>ddlutils</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <!--<dependency>-->-->
+    <!--<dependency>-->
+    <!--<groupId>com.querydsl</groupId>-->
+    <!--<groupId>com.octo.java-sql-dsl</groupId>-->
+    <!--<artifactId>java-sql-dsl</artifactId>-->
+    <!--<version>0.1.1</version>-->
+    <!--</dependency>
+    <artifactId>querydsl-sql</artifactId>
+    <version>4.2.1</version>
+    </dependency>
     <!-- END TEST DEPENDENCIES !-->
   </dependencies>
 

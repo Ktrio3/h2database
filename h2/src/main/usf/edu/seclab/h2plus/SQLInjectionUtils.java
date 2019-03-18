@@ -2,17 +2,34 @@ package usf.edu.seclab.h2plus;
 
 import org.h2.jdbc.JdbcPreparedStatement;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class SQLInjectionUtils {
+
+    public static void testPreparedStatements(Connection connection) throws SQLException {
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from injTest where group_id='20' order by ? asc");
+        selectStatement.setColumnName(1, "id");
+        ResultSet rs = selectStatement.executeQuery();
+        TestUtils.printResultSet(rs);
+    }
     public static void testInjectionInsert(Connection connection) throws SQLException {
         String person = "injTest (id, name, group_id) values (112, 'dummy', '50'); delete from injTest;-- ";
 //        String person = "injTest";
         Statement s = connection.createStatement();
         s.executeUpdate("insert into " + person + " (id, name, group_id) values (111, 'al', '50')");
+    }
+
+    public static void testInjectionSelectUnicode(Connection connection) throws SQLException {
+        String backtick = "`";
+//        String backtick = "<0x0060>";
+        String injString = "injTest\u00B4 -- ";
+        injString = injString.replace("`", "");
+//        injString = injString.replace("`", "``");
+        String sql = "select * from " + backtick + injString + backtick + " where name='user20'";
+//        String sql = "select * from `" + injString + "` where name='user20'";
+        PreparedStatement selectStatement = connection.prepareStatement(sql);
+        TestUtils.printResultSet(selectStatement.executeQuery());
     }
 
     /**
@@ -58,28 +75,41 @@ public class SQLInjectionUtils {
         s.executeUpdate("delete from injTest where id in (select top 3 id from injTest order by " + colName + " desc)");
     }
 
+    public static void testInjectionBatchUpdate(Connection connection) throws SQLException {
+//        String colName = "id";
+        Statement s = connection.createStatement();
+        s.executeUpdate("insert into injTest (id, name, group_id) values (5555, 'aa', 'bb')insert into injTest (id, name, group_id) values (5555, 'aa', 'bb')");
+//        s.executeUpdate("select * from injTest;insert into injTest (id, name, group_id) values (5555, 'aa', 'bb')");
+    }
+
+    public static void selectTest(Connection connection) throws SQLException {
+//        String colName = "id";
+        Statement s = connection.createStatement();
+        ResultSet resultSet = s.executeQuery("select * from injTest where id=5555");
+        TestUtils.printResultSet2(resultSet);
+    }
 
     public static void testInjectionSelect(Connection connection) throws SQLException {
-        String column = "id UNION select * from injTest--";
-//        String column = "id";
+//        String column = "id UNION select * from injTest--";
+        String column = "id";
         Statement s = connection.createStatement();
-        ResultSet resultSet = s.executeQuery("select * from injTest where {" + column + "} between 1 and 10");
+        ResultSet resultSet = s.executeQuery("select * from injTest where " + column + " between 1 and 10");
         TestUtils.printResultSet(resultSet);
     }
 
-    public static void testInjectionSelectPS(Connection connection) throws SQLException {
-//        String column = "id between ? and ? UNION select * from injTest--";
-        String column = "id";
-        int i1 = 1;
-        int i2 = 10;
-
-        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
-                connection.prepareStatement("select * from injTest where " + column + " between ? and ?");
-        selectStatement.setInt(1, i1);
-        selectStatement.setInt(2, i2);
-        ResultSet rs = selectStatement.executeQuery();
-        TestUtils.printResultSet(rs);
-    }
+//    public static void testInjectionSelectPS(Connection connection) throws SQLException {
+////        String column = "id between ? and ? UNION select * from injTest--";
+//        String column = "id";
+//        int i1 = 1;
+//        int i2 = 10;
+//
+//        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+//                connection.prepareStatement("select * from injTest where " + column + " between ? and ?");
+//        selectStatement.setInt(1, i1);
+//        selectStatement.setInt(2, i2);
+//        ResultSet rs = selectStatement.executeQuery();
+//        TestUtils.printResultSet(rs);
+//    }
 
     /**
      * Standard Mysql codec escapes

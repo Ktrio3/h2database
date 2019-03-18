@@ -11,6 +11,7 @@ import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+
 import org.h2.api.ErrorCode;
 import org.h2.api.Trigger;
 import org.h2.command.Parser;
@@ -37,13 +38,7 @@ import org.h2.result.ResultTarget;
 import org.h2.result.Row;
 import org.h2.result.SearchRow;
 import org.h2.result.SortOrder;
-import org.h2.table.Column;
-import org.h2.table.ColumnResolver;
-import org.h2.table.IndexColumn;
-import org.h2.table.JoinBatch;
-import org.h2.table.Table;
-import org.h2.table.TableFilter;
-import org.h2.table.TableView;
+import org.h2.table.*;
 import org.h2.util.ColumnNamer;
 import org.h2.util.StatementBuilder;
 import org.h2.util.StringUtils;
@@ -54,12 +49,12 @@ import org.h2.value.ValueNull;
 
 /**
  * This class represents a simple SELECT statement.
- *
+ * <p>
  * For each select statement,
  * visibleColumnCount &lt;= distinctColumnCount &lt;= expressionCount.
  * The expression list count could include ORDER BY and GROUP BY expressions
  * that are not in the select list.
- *
+ * <p>
  * The call sequence is init(), mapColumns() if it's a subquery, prepare().
  *
  * @author Thomas Mueller
@@ -98,6 +93,8 @@ public class Select extends Query {
      */
     int[] groupIndex;
 
+    boolean hasParamTable = false;
+
     /**
      * Whether a column in the expression list is part of a group-by.
      */
@@ -111,7 +108,7 @@ public class Select extends Query {
      * Maps an expression object to an index, to use in accessing the Object[]
      * pointed to by groupByData.
      */
-    final HashMap<Expression,Integer> exprToIndexInGroupByData = new HashMap<>();
+    final HashMap<Expression, Integer> exprToIndexInGroupByData = new HashMap<>();
     /**
      * Map of group-by key to group-by expression data e.g. AggregateData
      */
@@ -147,7 +144,7 @@ public class Select extends Query {
      * Add a table to the query.
      *
      * @param filter the table to add
-     * @param isTop if the table can be the first table in the query plan
+     * @param isTop  if the table can be the first table in the query plan
      */
     public void addTableFilter(TableFilter filter, boolean isTop) {
         // Oracle doesn't check on duplicate aliases
@@ -298,7 +295,7 @@ public class Select extends Query {
     /**
      * Create a row with the current values, for queries with group-sort.
      *
-     * @param keyValues the key values
+     * @param keyValues   the key values
      * @param columnCount the number of columns
      * @return the row
      */
@@ -573,7 +570,7 @@ public class Select extends Query {
     }
 
     private void queryDistinct(ResultTarget result, long offset, long limitRows, boolean withTies,
-            boolean quickOffset) {
+                               boolean quickOffset) {
         if (limitRows > 0 && offset > 0) {
             limitRows += offset;
             if (limitRows < 0) {
@@ -606,7 +603,7 @@ public class Select extends Query {
                 offset--;
                 continue;
             }
-            Value[] row = { value };
+            Value[] row = {value};
             result.addRow(row);
             if ((sort == null || sortUsingIndex) && limitRows > 0 &&
                     rowNumber >= limitRows && !withTies) {
@@ -619,7 +616,7 @@ public class Select extends Query {
     }
 
     private LazyResult queryFlat(int columnCount, ResultTarget result, long offset, long limitRows, boolean withTies,
-            boolean quickOffset) {
+                                 boolean quickOffset) {
         if (limitRows > 0 && offset > 0 && !quickOffset) {
             limitRows += offset;
             if (limitRows < 0) {
@@ -808,7 +805,7 @@ public class Select extends Query {
                 }
             }
         }
-        assert lazy == (lazyResult != null): lazy;
+        assert lazy == (lazyResult != null) : lazy;
         if (lazyResult != null) {
             if (limitRows > 0) {
                 lazyResult.setLimit(limitRows);
@@ -916,6 +913,10 @@ public class Select extends Query {
 
     private int expandColumnList(TableFilter filter, int index) {
         Table t = filter.getTable();
+        if (t instanceof ParamatizedTable) {
+            return index;
+        }
+
         String alias = filter.getTableAlias();
         Column[] columns = t.getColumns();
         for (Column c : columns) {
@@ -1069,7 +1070,8 @@ public class Select extends Query {
             }
             expressions.set(i, e.optimize(session));
         }
-        if (condition != null) {
+
+        if (condition != null && !hasParamTable) {
             condition = condition.optimize(session);
             for (TableFilter f : filters) {
                 // outer joins: must not add index conditions such as
@@ -1114,8 +1116,8 @@ public class Select extends Query {
                     // if another index is faster
                     if (columnIndex.canFindNext() && ascending &&
                             (current == null ||
-                            current.getIndexType().isScan() ||
-                            columnIndex == current)) {
+                                    current.getIndexType().isScan() ||
+                                    columnIndex == current)) {
                         IndexType type = columnIndex.getIndexType();
                         // hash indexes don't work, and unique single column
                         // indexes don't work
@@ -1141,7 +1143,7 @@ public class Select extends Query {
                     }
                 } else if (index.getIndexColumns() != null
                         && index.getIndexColumns().length >= current
-                                .getIndexColumns().length) {
+                        .getIndexColumns().length) {
                     IndexColumn[] sortColumns = index.getIndexColumns();
                     IndexColumn[] currentColumns = current.getIndexColumns();
                     boolean swapIndex = false;
@@ -1310,7 +1312,7 @@ public class Select extends Query {
             buff.append(" DISTINCT");
             if (distinctExpressions != null) {
                 buff.append(" ON(");
-                for (Expression distinctExpression: distinctExpressions) {
+                for (Expression distinctExpression : distinctExpressions) {
                     buff.appendExceptFirst(", ");
                     buff.append(distinctExpression.getSQL());
                 }
@@ -1475,7 +1477,7 @@ public class Select extends Query {
 
     @Override
     public void addGlobalCondition(Parameter param, int columnId,
-            int comparisonType) {
+                                   int comparisonType) {
         addParameter(param);
         Expression comp;
         Expression col = expressions.get(columnId);
@@ -1533,39 +1535,39 @@ public class Select extends Query {
     @Override
     public boolean isEverything(ExpressionVisitor visitor) {
         switch (visitor.getType()) {
-        case ExpressionVisitor.DETERMINISTIC: {
-            if (isForUpdate) {
-                return false;
-            }
-            for (TableFilter f : filters) {
-                if (!f.getTable().isDeterministic()) {
+            case ExpressionVisitor.DETERMINISTIC: {
+                if (isForUpdate) {
                     return false;
                 }
+                for (TableFilter f : filters) {
+                    if (!f.getTable().isDeterministic()) {
+                        return false;
+                    }
+                }
+                break;
             }
-            break;
-        }
-        case ExpressionVisitor.SET_MAX_DATA_MODIFICATION_ID: {
-            for (TableFilter f : filters) {
-                long m = f.getTable().getMaxDataModificationId();
-                visitor.addDataModificationId(m);
+            case ExpressionVisitor.SET_MAX_DATA_MODIFICATION_ID: {
+                for (TableFilter f : filters) {
+                    long m = f.getTable().getMaxDataModificationId();
+                    visitor.addDataModificationId(m);
+                }
+                break;
             }
-            break;
-        }
-        case ExpressionVisitor.EVALUATABLE: {
-            if (!session.getDatabase().getSettings().optimizeEvaluatableSubqueries) {
-                return false;
+            case ExpressionVisitor.EVALUATABLE: {
+                if (!session.getDatabase().getSettings().optimizeEvaluatableSubqueries) {
+                    return false;
+                }
+                break;
             }
-            break;
-        }
-        case ExpressionVisitor.GET_DEPENDENCIES: {
-            for (TableFilter f : filters) {
-                Table table = f.getTable();
-                visitor.addDependency(table);
-                table.addDependencies(visitor.getDependencies());
+            case ExpressionVisitor.GET_DEPENDENCIES: {
+                for (TableFilter f : filters) {
+                    Table table = f.getTable();
+                    visitor.addDependency(table);
+                    table.addDependencies(visitor.getDependencies());
+                }
+                break;
             }
-            break;
-        }
-        default:
+            default:
         }
         ExpressionVisitor v2 = visitor.incrementQueryLevel(1);
         for (Expression e : expressions) {
@@ -1707,7 +1709,7 @@ public class Select extends Query {
                     Value[] row = null;
                     if (previousKeyValues == null) {
                         previousKeyValues = keyValues;
-                        currentGroupByExprData =new Object[Math.max(exprToIndexInGroupByData.size(),
+                        currentGroupByExprData = new Object[Math.max(exprToIndexInGroupByData.size(),
                                 expressions.size())];
                     } else if (!Arrays.equals(previousKeyValues, keyValues)) {
                         row = createGroupSortedRow(previousKeyValues, columnCount);

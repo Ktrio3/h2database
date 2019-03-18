@@ -37,22 +37,7 @@ import org.h2.util.DateTimeUtils;
 import org.h2.util.IOUtils;
 import org.h2.util.MergedResultSet;
 import org.h2.util.Utils;
-import org.h2.value.DataType;
-import org.h2.value.Value;
-import org.h2.value.ValueBoolean;
-import org.h2.value.ValueByte;
-import org.h2.value.ValueBytes;
-import org.h2.value.ValueDate;
-import org.h2.value.ValueDecimal;
-import org.h2.value.ValueDouble;
-import org.h2.value.ValueFloat;
-import org.h2.value.ValueInt;
-import org.h2.value.ValueLong;
-import org.h2.value.ValueNull;
-import org.h2.value.ValueShort;
-import org.h2.value.ValueString;
-import org.h2.value.ValueTime;
-import org.h2.value.ValueTimestamp;
+import org.h2.value.*;
 
 /**
  * Represents a prepared statement.
@@ -424,6 +409,18 @@ public class JdbcPreparedStatement extends JdbcStatement implements
                 debugCode("setString("+parameterIndex+", "+quote(x)+");");
             }
             Value v = x == null ? (Value) ValueNull.INSTANCE : ValueString.get(x);
+            setParameter(parameterIndex, v);
+        } catch (Exception e) {
+            throw logAndConvert(e);
+        }
+    }
+
+    public void setColumnName(int parameterIndex, String x) throws SQLException {
+        try {
+            if (isDebugEnabled()) {
+                debugCode("setString("+parameterIndex+", "+quote(x)+");");
+            }
+            Value v = x == null ? (Value) ValueNull.INSTANCE : ValueColumnName.get(x);
             setParameter(parameterIndex, v);
         } catch (Exception e) {
             throw logAndConvert(e);

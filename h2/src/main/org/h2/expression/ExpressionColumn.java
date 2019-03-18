@@ -87,6 +87,8 @@ public class ExpressionColumn extends Expression {
                 schemaName, resolver.getSchemaName())) {
             return;
         }
+        if (resolver.getColumns() == null) return;
+        
         for (Column col : resolver.getColumns()) {
             String n = resolver.getDerivedColumnName(col);
             if (n == null) {

@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class MainTest {
 
     public static void main(String[] args) {
-//        testDatabase();
+        testDatabase();
 //        TestUtils.fillDatabase();
-        TestUtils.testSimple();
+//        TestUtils.prepareFillTestTable();
     }
 
     private static void testDatabase() {
@@ -17,7 +17,15 @@ public class MainTest {
         try {
             // create a database connection
             connection = DriverManager.getConnection(TestUtils.DB_NAME);
-            SQLInjectionUtils.testInjectionSelectCount(connection);
+//            SQLInjectionUtils.testInjectionBatchUpdate(connection);
+//            SQLInjectionUtils.selectTest(connection);
+//            PerformanceTestUtils.testPreparedDynamicRandBad(connection);
+//            TestUtils.testUpdate();
+//            TestUtils.testSimple();
+//            TestUtils.fillDatabase();
+            SecurityTestUtils.testsetColName(connection);
+            System.out.println("========");
+            SecurityTestUtils.testStringConcat(connection);
         } catch (SQLException e) {
             // if the error message is "out of memory",
             // it probably means no database file is found
