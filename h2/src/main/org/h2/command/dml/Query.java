@@ -2,6 +2,9 @@
  * Copyright 2004-2018 H2 Group. Multiple-Licensed under the MPL 2.0,
  * and the EPL 1.0 (http://h2database.com/html/license.html).
  * Initial Developer: H2 Group
+ *
+ * * Cagri Cetin, Univeristy of South Florida
+ * A prototype setColumnName implementation
  */
 package org.h2.command.dml;
 
@@ -33,6 +36,7 @@ import org.h2.util.StringUtils;
 import org.h2.util.Utils;
 import org.h2.value.Value;
 import org.h2.value.ValueColumnName;
+import org.h2.value.ValueColumnList;
 import org.h2.value.ValueInt;
 import org.h2.value.ValueNull;
 
@@ -583,7 +587,33 @@ public abstract class Query extends Prepared {
      * @return the {@link SortOrder} object
      */
     public SortOrder prepareOrder(ArrayList<SelectOrderBy> orderList, int expressionCount) {
+        //Check for a ColumnList. If found, add to orderList in the same order
         int size = orderList.size();
+        for (int i = 0; i < size; i++)
+        {
+            SelectOrderBy o = orderList.get(i);
+            Value v = o.columnIndexExpr.getValue(null);
+            if (v instanceof ValueColumnList) {
+                ValueColumnList v2 = (ValueColumnList) v;
+                //Remove the ColumnList from orderList and insert ValueColumnNames
+                orderList.remove(i);
+                size -= 1;
+                int j = i;
+                //Loop over list adding remaining elements
+                for(Value x : v2.valueList)
+                {
+                    SelectOrderBy order = new SelectOrderBy();
+                    Parameter p = new Parameter(0);
+                    p.setValue(x);
+                    order.columnIndexExpr = p;
+                    orderList.add(j, order);
+                    size += 1;
+                    j += 1;
+                }
+            }
+        }
+
+        size = orderList.size();
         int[] index = new int[size];
         int[] sortType = new int[size];
         for (int i = 0; i < size; i++) {

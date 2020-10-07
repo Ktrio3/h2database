@@ -5,6 +5,9 @@
  *
  * Nicolas Fortin, Atelier SIG, IRSTV FR CNRS 24888
  * Support for the operator "&&" as an alias for SPATIAL_INTERSECTS
+ *
+ * Cagri Cetin, Univeristy of South Florida
+ * A prototype setColumnName implementation
  */
 package org.h2.command;
 

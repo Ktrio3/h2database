@@ -2,6 +2,9 @@
  * Copyright 2004-2018 H2 Group. Multiple-Licensed under the MPL 2.0,
  * and the EPL 1.0 (http://h2database.com/html/license.html).
  * Initial Developer: H2 Group
+ *
+ * * Cagri Cetin, Univeristy of South Florida
+ * A prototype setColumnName implementation
  */
 package org.h2.jdbc;
 
@@ -418,9 +421,28 @@ public class JdbcPreparedStatement extends JdbcStatement implements
     public void setColumnName(int parameterIndex, String x) throws SQLException {
         try {
             if (isDebugEnabled()) {
-                debugCode("setString("+parameterIndex+", "+quote(x)+");");
+                debugCode("setColumnName("+parameterIndex+", "+quote(x)+");");
             }
             Value v = x == null ? (Value) ValueNull.INSTANCE : ValueColumnName.get(x);
+            setParameter(parameterIndex, v);
+        } catch (Exception e) {
+            throw logAndConvert(e);
+        }
+    }
+
+    public void setColumnList(int parameterIndex, String[] xs) throws SQLException {
+        try {
+            if (isDebugEnabled()) {
+                debugCode("setColumnList("+parameterIndex+", "+quoteArray(xs)+");");
+            }
+
+            ValueColumnList v = new ValueColumnList("");
+
+            for(String x : xs)
+            {
+                v.valueList.add(x == null ? (Value) ValueNull.INSTANCE : ValueColumnName.get(x));
+            }
+
             setParameter(parameterIndex, v);
         } catch (Exception e) {
             throw logAndConvert(e);

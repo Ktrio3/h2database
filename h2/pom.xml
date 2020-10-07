@@ -140,7 +140,7 @@
       <artifactId>ddlutils</artifactId>
       <version>1.0</version>
     </dependency>
-    <!--<dependency>-->-->
+    <!--<dependency>-->
     <!--<dependency>-->
     <!--<groupId>com.querydsl</groupId>-->
     <!--<groupId>com.octo.java-sql-dsl</groupId>-->
@@ -150,7 +150,7 @@
     <artifactId>querydsl-sql</artifactId>
     <version>4.2.1</version>
     </dependency>
-    <!-- END TEST DEPENDENCIES !-->
+    END TEST DEPENDENCIES !-->
   </dependencies>
 
   <!-- The test code creates proxy files using javac or tools.jar. Through maven we need to tell it
@@ -309,5 +309,29 @@
     </plugins>
   </build>
 
-
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

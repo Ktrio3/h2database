@@ -9,8 +9,7 @@ import java.util.Random;
 
 public class TestUtils {
 
-    public static final String DB_NAME = "jdbc:h2:/Users/cagricetin/Documents/DEV/SQLIProject/h2database/h2/sample";
-
+    public static final String DB_NAME = "jdbc:h2:/media/sf_h2database/h2/sample.db;USER=sa"; // Linux VM
 
     public static void prepareTestTable() {
         Connection connection = null;
@@ -118,7 +117,7 @@ public class TestUtils {
 
     public static void printResultSet(ResultSet rs) throws SQLException {
         while (rs.next()) {
-            System.out.println("name = " + rs.getString("col1") + ", id= " +
+            System.out.println("name = " + rs.getString("col0") + ", id= " +
                     rs.getInt("col2"));
         }
     }

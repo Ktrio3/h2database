@@ -47,7 +47,7 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "No injection");
     }
 
     public static void testStatementStatic(Connection connection) throws SQLException {
@@ -68,7 +68,7 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "Static Whitelist");
     }
 
     public static void testStatementStaticRand(Connection connection) throws SQLException {
@@ -89,7 +89,7 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "Static Whitelist, Random");
     }
 
     public static void testPreparedDynamicRand(Connection connection) throws SQLException {
@@ -114,7 +114,7 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "Dynamic Whitelist, Random");
     }
 
     public static void testPreparedDynamicRandBad(Connection connection) throws SQLException {
@@ -139,7 +139,7 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "Dynamic Whitelist, Random Bad");
     }
 
 
@@ -164,7 +164,7 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "Dynamic Whitelist");
     }
 
 
@@ -183,7 +183,31 @@ public class PerformanceTestUtils {
         for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
             long curr = getMicroSec();
 
+            selectStatement.setInt(1, 3);
+            ResultSet rs = selectStatement.executeQuery();
+
+            long diff = getMicroSec() - curr;
+            longs.add(diff);
+        }
+
+        printTimingAverage(longs, "Set Int");
+    }
+
+    public static void testPreparedStatementsStandardSetIntRandom(Connection connection) throws SQLException {
+        List<Long> longs = new ArrayList<>();
+
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from testtable where col2 < 100 order by ? asc");
+
+        for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
+            long curr = getMicroSec();
+
             int colIndex = TestUtils.getRandColIndex();
+
+            if (colIndex == 0)
+            {
+                colIndex = 1;
+            }
 
             selectStatement.setInt(1, colIndex);
             ResultSet rs = selectStatement.executeQuery();
@@ -192,7 +216,7 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "Set Int, Random");
     }
 
     public static void testStatementStaticRandBad(Connection connection) throws SQLException {
@@ -213,7 +237,7 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "Static Whitelist, Bad");
     }
 
 
@@ -228,22 +252,72 @@ public class PerformanceTestUtils {
 
             int colIndex = TestUtils.getOutOfRangeRandColIndex();
 
+            if (colIndex == 0)
+            {
+                colIndex = 1000;
+            }
+
             selectStatement.setInt(1, colIndex);
 
             try {
                 ResultSet rs = selectStatement.executeQuery();
             } catch (JdbcSQLSyntaxErrorException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
             long diff = getMicroSec() - curr;
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "Set Int, Bad");
     }
 
     public static void testPreparedStatementsPlus(Connection connection) throws SQLException {
+        List<Long> longs = new ArrayList<>();
+
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from testtable where col2 < 100 order by ? asc");
+
+        for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
+            long curr = getMicroSec();
+
+            int colIndex = TestUtils.getRandColIndex();
+
+            selectStatement.setColumnName(1, "col2");
+            ResultSet resultSet = selectStatement.executeQuery();
+            //TestUtils.printResultSet(resultSet);
+
+            long diff = getMicroSec() - curr;
+            longs.add(diff);
+        }
+
+        printTimingAverage(longs, "New Prepared Statement");
+    }
+
+    public static void testPreparedStatementsListPlus(Connection connection) throws SQLException {
+        List<Long> longs = new ArrayList<>();
+
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from testtable where col2 < 100 order by ? asc");
+
+        for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
+            long curr = getMicroSec();
+
+            int colIndex = TestUtils.getRandColIndex();
+
+            String[] v = {"col1", "col2"};
+            selectStatement.setColumnList(1, v);
+            ResultSet resultSet = selectStatement.executeQuery();
+            //TestUtils.printResultSet(resultSet);
+
+            long diff = getMicroSec() - curr;
+            longs.add(diff);
+        }
+
+        printTimingAverage(longs, "New Prepared Statement List");
+    }
+
+    public static void testPreparedStatementsPlusRandom(Connection connection) throws SQLException {
         List<Long> longs = new ArrayList<>();
 
         JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
@@ -261,7 +335,31 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "New Prepared Statement, Random");
+    }
+
+    public static void testPreparedStatementsListPlusRandom(Connection connection) throws SQLException {
+        List<Long> longs = new ArrayList<>();
+
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from testtable where col2 < 100 order by ? asc");
+
+        for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
+            long curr = getMicroSec();
+
+            int colIndex = TestUtils.getRandColIndex();
+            int colIndex2 = TestUtils.getRandColIndex();
+
+            String[] v = {"col" + colIndex, "col" + colIndex2};
+            selectStatement.setColumnList(1, v);
+            ResultSet resultSet = selectStatement.executeQuery();
+//            TestUtils.printResultSet(resultSet);
+
+            long diff = getMicroSec() - curr;
+            longs.add(diff);
+        }
+
+        printTimingAverage(longs, "New Prepared Statement List, Random");
     }
 
     // Modify ad hoc metods to do the same thing.
@@ -283,7 +381,31 @@ public class PerformanceTestUtils {
             longs.add(diff);
         }
 
-        printTiming(longs);
+        printTimingAverage(longs, "New Prepared Statement, Bad");
+    }
+
+    public static void testPreparedStatementsListPlusBad(Connection connection) throws SQLException {
+        List<Long> longs = new ArrayList<>();
+
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from testtable where col2 < 100 order by ? asc");
+
+        for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
+            long curr = getMicroSec();
+
+            int colIndex = TestUtils.getOutOfRangeRandColIndex();
+            int colIndex2 = TestUtils.getOutOfRangeRandColIndex();
+
+            String[] v = {"col" + colIndex, "col" + colIndex2};
+            selectStatement.setColumnList(1, v);
+            ResultSet resultSet = selectStatement.executeQuery();
+//            TestUtils.printResultSet(resultSet);
+
+            long diff = getMicroSec() - curr;
+            longs.add(diff);
+        }
+
+        printTimingAverage(longs, "New Prepared Statement List, Bad");
     }
 
 
@@ -446,6 +568,18 @@ public class PerformanceTestUtils {
         for (Long l : longs) {
             System.out.println(l);
         }
+    }
+
+    private static void printTimingAverage(List<Long> longs, String S) {
+        Long count = 0L;
+        Long sum = 0L;
+        for (Long l : longs) {
+            count = count + 1;
+            sum = sum + l;
+        }
+        System.out.print(S);
+        System.out.print("(microseconds): ");
+        System.out.println(sum/count);
     }
 
     private static long getMicroSec() {
