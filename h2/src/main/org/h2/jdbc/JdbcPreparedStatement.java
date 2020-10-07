@@ -436,7 +436,7 @@ public class JdbcPreparedStatement extends JdbcStatement implements
                 debugCode("setColumnList("+parameterIndex+", "+quoteArray(xs)+");");
             }
 
-            ValueColumnList v = new ValueColumnList("");
+            ValueColumnList v = (ValueColumnList) ValueColumnList.get("");
 
             for(String x : xs)
             {

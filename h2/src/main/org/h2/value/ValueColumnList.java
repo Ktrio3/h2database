@@ -33,7 +33,7 @@ public class ValueColumnList extends Value {
 
     public ArrayList<Value> valueList;
 
-    public ValueColumnList(String value) {
+    protected ValueColumnList(String value) {
         this.value = value;
         this.valueList = new ArrayList<>();
     }
