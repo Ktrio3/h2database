@@ -317,6 +317,29 @@ public class PerformanceTestUtils {
         printTimingAverage(longs, "New Prepared Statement List");
     }
 
+    public static void testPreparedStatementsListSinglePlus(Connection connection) throws SQLException {
+        List<Long> longs = new ArrayList<>();
+
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from testtable where col2 < 100 order by ? asc");
+
+        for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
+            long curr = getMicroSec();
+
+            int colIndex = TestUtils.getRandColIndex();
+
+            String[] v = {"col1"};
+            selectStatement.setColumnList(1, v);
+            ResultSet resultSet = selectStatement.executeQuery();
+            //TestUtils.printResultSet(resultSet);
+
+            long diff = getMicroSec() - curr;
+            longs.add(diff);
+        }
+
+        printTimingAverage(longs, "New Prepared Statement List (Single)");
+    }
+
     public static void testPreparedStatementsPlusRandom(Connection connection) throws SQLException {
         List<Long> longs = new ArrayList<>();
 
@@ -336,6 +359,29 @@ public class PerformanceTestUtils {
         }
 
         printTimingAverage(longs, "New Prepared Statement, Random");
+    }
+
+    public static void testPreparedStatementsListSinglePlusRandom(Connection connection) throws SQLException {
+        List<Long> longs = new ArrayList<>();
+
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from testtable where col2 < 100 order by ? asc");
+
+        for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
+            long curr = getMicroSec();
+
+            int colIndex = TestUtils.getRandColIndex();
+
+            String[] v = {"col" + colIndex};
+            selectStatement.setColumnList(1, v);
+            ResultSet resultSet = selectStatement.executeQuery();
+//            TestUtils.printResultSet(resultSet);
+
+            long diff = getMicroSec() - curr;
+            longs.add(diff);
+        }
+
+        printTimingAverage(longs, "New Prepared Statement List (Single), Random");
     }
 
     public static void testPreparedStatementsListPlusRandom(Connection connection) throws SQLException {
@@ -406,6 +452,29 @@ public class PerformanceTestUtils {
         }
 
         printTimingAverage(longs, "New Prepared Statement List, Bad");
+    }
+
+    public static void testPreparedStatementsListSinglePlusBad(Connection connection) throws SQLException {
+        List<Long> longs = new ArrayList<>();
+
+        JdbcPreparedStatement selectStatement = (JdbcPreparedStatement)
+                connection.prepareStatement("select * from testtable where col2 < 100 order by ? asc");
+
+        for (int i = 0; i < TOTAL_EXPR_COUNT; i++) {
+            long curr = getMicroSec();
+
+            int colIndex = TestUtils.getOutOfRangeRandColIndex();
+
+            String[] v = {"col" + colIndex};
+            selectStatement.setColumnList(1, v);
+            ResultSet resultSet = selectStatement.executeQuery();
+//            TestUtils.printResultSet(resultSet);
+
+            long diff = getMicroSec() - curr;
+            longs.add(diff);
+        }
+
+        printTimingAverage(longs, "New Prepared Statement List (Single), Bad");
     }
 
 

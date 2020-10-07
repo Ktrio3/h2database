@@ -25,26 +25,31 @@ public class MainTest {
 //            SQLInjectionUtils.selectTest(connection);
 
 //            PerformanceTestUtils.testPreparedStatementsStandard(connection);
-//
-            PerformanceTestUtils.testStatementStatic(connection);
-            PerformanceTestUtils.testStatementStaticRand(connection);
-            PerformanceTestUtils.testStatementStaticRandBad(connection);
+// //
+            // PerformanceTestUtils.testStatementStatic(connection);
+            // PerformanceTestUtils.testStatementStaticRand(connection);
+            // PerformanceTestUtils.testStatementStaticRandBad(connection);
 
-            PerformanceTestUtils.testPreparedDynamic(connection);
-            PerformanceTestUtils.testPreparedDynamicRand(connection);
-            PerformanceTestUtils.testPreparedDynamicRandBad(connection);
+            // PerformanceTestUtils.testPreparedDynamic(connection);
+            // PerformanceTestUtils.testPreparedDynamicRand(connection);
+            // PerformanceTestUtils.testPreparedDynamicRandBad(connection);
 
-            PerformanceTestUtils.testPreparedStatementsStandardSetInt(connection);
-            PerformanceTestUtils.testPreparedStatementsStandardSetIntRandom(connection);
-            PerformanceTestUtils.testPreparedStatementsStandardSetIntBad(connection);
+            // PerformanceTestUtils.testPreparedStatementsStandardSetInt(connection);
+            // PerformanceTestUtils.testPreparedStatementsStandardSetIntRandom(connection);
+            // PerformanceTestUtils.testPreparedStatementsStandardSetIntBad(connection);
 
-            PerformanceTestUtils.testPreparedStatementsPlus(connection);
-            PerformanceTestUtils.testPreparedStatementsPlusRandom(connection);
-            PerformanceTestUtils.testPreparedStatementsPlusBad(connection);
+            // PerformanceTestUtils.testPreparedStatementsPlus(connection);
+            // PerformanceTestUtils.testPreparedStatementsPlusRandom(connection);
+            // PerformanceTestUtils.testPreparedStatementsPlusBad(connection);
 
-            PerformanceTestUtils.testPreparedStatementsListPlus(connection);
-            PerformanceTestUtils.testPreparedStatementsListPlusRandom(connection);
-            PerformanceTestUtils.testPreparedStatementsListPlusBad(connection);
+            // PerformanceTestUtils.testPreparedStatementsListPlus(connection);
+            // PerformanceTestUtils.testPreparedStatementsListPlusRandom(connection);
+            // PerformanceTestUtils.testPreparedStatementsListPlusBad(connection);
+
+            // PerformanceTestUtils.testPreparedStatementsListSinglePlus(connection);
+            // PerformanceTestUtils.testPreparedStatementsListSinglePlusRandom(connection);
+            PerformanceTestUtils.testPreparedStatementsListSinglePlusBad(connection);
+
             //SecurityTestUtils.testsetColName(connection);
             //System.out.println("========");
             //SecurityTestUtils.testStringConcat(connection);

@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class TestUtils {
 
-    public static final String DB_NAME = "jdbc:h2:/media/sf_h2database/h2/sample.db;USER=sa"; // Linux VM
+    public static final String DB_NAME = "jdbc:h2:/home/kevin/h2database/h2/sample.db;USER=sa"; // Linux VM
 
     public static void prepareTestTable() {
         Connection connection = null;
